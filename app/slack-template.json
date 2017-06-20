@@ -1,0 +1,17 @@
+{
+        "channel": "#testing",
+        "username": "ObiWan",
+        "attachments": [
+                {
+                        "fallback": "The AWS IP range list has changed",
+                        "text": "AWS has changed the list of public IP addresses.  See below for details",
+                        "pretext": "<!channel> The AWS address ranges have changed.  Check https://ip-ranges.amazonaws.com/ip-ranges.json for the full list",
+                        "fields": [
+                                {
+                                        "title": "List of additions and deletions",
+                                        "value": "My Message"
+                                }
+                        ]
+                }
+        ]
+}
