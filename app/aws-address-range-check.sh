@@ -10,9 +10,8 @@ SLACK_TEMPLATE=${INST_DIR}/slack-template.json
 
 CURL=/usr/bin/curl
 
-if [ -e "${CURRENT_JSON}" ]; then
-	mv ${CURRENT_JSON} ${PREVIOUS_JSON}
-fi
+# get the previous run file if it exists
+aws s3 cp ${S3_PREV_RUN_FILE} ${PREVIOUS_JSON}
 
 # get the json address list
 $CURL -s ${AWS_ADDRESS_URL} > ${CURRENT_JSON}
@@ -39,8 +38,11 @@ if [ $RESULT -eq 0 ]; then
 		SLACK_MESSAGE="Inital run of the AWS address range checker. Baseline taken"
 		echo ${SLACK_MESSAGE}
 	fi
+
+  # Put the current run file in S3 for retrieval next run
+  aws s3 cp ${CURRENT_JSON} ${S3_PREV_RUN_FILE}
 else
-	SLACK_MESSAGE="ERROR We have been seduced by the dark side and are unable to download the AWS address range json"
+	SLACK_MESSAGE="ERROR Unable to download the AWS address range json"
 	echo ${SLACK_MESSAGE}
 fi
 

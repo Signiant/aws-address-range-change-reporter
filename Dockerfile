@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 # bash
-RUN apk -Uuv add coreutils bash bash-doc bash-completion curl groff less python py-pip && \
+RUN apk -Uuv add coreutils bash bash-doc bash-completion curl groff less python py-pip jq && \
   pip install awscli && \
   apk --purge -v del py-pip && \
   rm /var/cache/apk/*
